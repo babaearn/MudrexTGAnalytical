@@ -9,18 +9,13 @@ ENV PYTHONUNBUFFERED=1
 ENV PIP_NO_CACHE_DIR=1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-
 # Copy requirements first (for Docker layer caching)
 COPY requirements.txt .
 
-# Install Python dependencies
+# Install Python dependencies using binary wheels (no compilation needed)
+# psycopg2-binary includes pre-compiled PostgreSQL bindings, so no gcc/libpq-dev needed
 RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+    pip install --only-binary :all: -r requirements.txt
 
 # Copy application code
 COPY bot/ ./bot/
