@@ -58,8 +58,9 @@ logs/
 # Backups
 backups/
 *.csv
-*.txt
 reports/
+
+# Note: requirements.txt should NOT be ignored!
 
 # Railway
 .railway/
