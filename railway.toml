@@ -1,7 +1,8 @@
 [build]
-builder = "NIXPACKS"
+builder = "nixpacks"
+buildCommand = "pip install --upgrade pip && pip install -r requirements.txt"
 
 [deploy]
 startCommand = "python -m bot.main"
-restartPolicyType = "ON_FAILURE"
+restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
